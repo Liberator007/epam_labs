@@ -1,6 +1,9 @@
 package com.bsuir.autobase.entity;
 
-public class Address {
+import java.io.Serializable;
+import java.text.ParseException;
+
+public class Address implements Serializable {
     private String city;
     private String street;
     private int houseNumber;
@@ -39,4 +42,33 @@ public class Address {
     public int getHouseNumber() {
         return houseNumber;
     }
+
+    public String writeAddress(char l){
+        return getCity() + l + getStreet() + l + getHouseNumber();
+    }
+
+    public void readAddress(String str, char l){
+        int index;
+
+        index = str.indexOf(l);
+        setCity(str.substring(0, index));
+        str = str.substring(index + 1);
+
+        index = str.indexOf(l);
+        setStreet(str.substring(0, index));
+        str = str.substring(index + 1);
+
+        index = str.indexOf(l);
+        if (index != -1)
+        {
+            setHouseNumber(Integer.parseInt(str.substring(0, index)));
+            str = str.substring(index + 1);
+        }
+        else
+        {
+            setHouseNumber(Integer.parseInt(str));
+        }
+
+    }
+
 }

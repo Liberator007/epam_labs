@@ -1,23 +1,26 @@
 package com.bsuir.autobase.entity;
 
+import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class RentCar extends Car{
-    private Client client;
+public class RentCar implements Serializable {
+    private Car car;
     private Date startDate;
     private Date endDate;
     private Address departurePoint;
 
-    public RentCar(String model, int id, int yearIssue, int seats, boolean rent, Company company, Client client, Date startDate, Date endDate, Address departurePoint) {
-        super(model, id, yearIssue, seats, rent, company);
-        this.client = client;
+    public RentCar(Car car, Date startDate, Date endDate, Address departurePoint) {
+        this.car = car;
         this.startDate = startDate;
         this.endDate = endDate;
         this.departurePoint = departurePoint;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setCar(Car car) {
+        this.car = car;
     }
 
     public void setStartDate(Date startDate) {
@@ -32,8 +35,8 @@ public class RentCar extends Car{
         this.departurePoint = departurePoint;
     }
 
-    public Client getClient() {
-        return client;
+    public Car getCar() {
+        return car;
     }
 
     public Date getStartDate() {
@@ -46,5 +49,29 @@ public class RentCar extends Car{
 
     public Address getDeparturePoint() {
         return departurePoint;
+    }
+
+    public String writeRentCar(char l){
+        return getCar().writeCar('|') + l + getStartDate() + "|" + getEndDate() + "|" + getDeparturePoint().writeAddress('|');
+    }
+
+    public void readRentCar(String str, char l) throws ParseException {
+        int index;
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+
+        car.readCar(str, l);
+
+        index = str.indexOf(l);
+        Date startDate = dateFormat.parse(str.substring(0, index));
+        setStartDate(startDate);
+        str.substring(index + 1);
+
+        index = str.indexOf(l);
+        Date endDate = dateFormat.parse(str.substring(0, index));
+        setEndDate(endDate);
+        str.substring(index + 1);
+
+        departurePoint.readAddress(str, l);
+
     }
 }
