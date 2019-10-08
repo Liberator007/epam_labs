@@ -1,4 +1,4 @@
-package com.bsuir.autobase.entity;
+package by.bsuir.carrental.entity;
 
 import java.io.Serializable;
 import java.text.ParseException;

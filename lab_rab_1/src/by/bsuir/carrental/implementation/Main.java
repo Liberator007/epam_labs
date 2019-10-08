@@ -1,34 +1,12 @@
-package com.bsuir.autobase.entity;
+package by.bsuir.carrental.implementation;
 
+import by.bsuir.carrental.entity.*;
+import by.bsuir.carrental.service.*;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.*;
-
-class CarModelComparator implements Comparator<Car>{
-    @Override
-    public int compare(Car a, Car b){
-
-        return a.getModel().compareTo(b.getModel());
-    }
-}
-
-class CarYearIssueComparator implements Comparator<Car>{
-    @Override
-    public int compare(Car a, Car b){
-
-        if(a.getYearIssue()> b.getYearIssue())
-            return 1;
-        else if(a.getYearIssue()< b.getYearIssue())
-            return -1;
-        else
-            return 0;
-    }
-}
 
 public class Main {
 
@@ -64,11 +42,13 @@ public class Main {
         }
         System.out.println();
 
-        readObject(company, listClient, listCar);   // Load data from *.txt file
+        //readObject(company, listClient, listCar);   // Load data from *.txt file
 
         company.setListCar(listCar);
 
         // Sort by Year of Issue car
+
+
         Collections.sort(company.getListCar(), new CarYearIssueComparator());
         for(Car  c : company.getListCar()){
             System.out.println(c.getModel() + " " + c.getYearIssue());
@@ -82,6 +62,7 @@ public class Main {
         }
 
         System.out.println();
+
         car3.setModel("Bugatti");
         updateObject(listCar, car3);   // Update object
         // Sort by model car
@@ -95,7 +76,7 @@ public class Main {
     }
     // Save data in *.txt file
     public static void saveObject(Object o, List<Client> listClient, List<Car> listCar){
-        String path = "save/";
+        String path = "src/save/";
         String filename = "";
         String info = "";
 
@@ -158,8 +139,9 @@ public class Main {
         }
     }
     // Load data from *.txt file
+    /*
     public static void readObject(Company company, List<Client> listClient, List<Car> listCar){
-        String path = "save/";
+        String path = "src/save/";
         String filename = "";
         String info = "";
         if (true)
@@ -257,6 +239,7 @@ public class Main {
 
 
     }
+    */
     // Delete object
     public static void deleteObject(List<Car> listCar, int id){
         for (Car car : listCar)
