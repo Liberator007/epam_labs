@@ -19,6 +19,10 @@ public class RentCar implements Serializable {
         this.departurePoint = departurePoint;
     }
 
+    public RentCar() {
+
+    }
+
     public void setCar(Car car) {
         this.car = car;
     }
@@ -50,7 +54,7 @@ public class RentCar implements Serializable {
     public Address getDeparturePoint() {
         return departurePoint;
     }
-
+/*
     public String writeRentCar(char l){
         return getCar().writeCar('|') + l + getStartDate() + "|" + getEndDate() + "|" + getDeparturePoint().writeAddress('|');
     }
@@ -74,4 +78,6 @@ public class RentCar implements Serializable {
         departurePoint.readAddress(str, l);
 
     }
+
+ */
 }

@@ -1,6 +1,7 @@
 package by.bsuir.carrental.implementation;
 
 import by.bsuir.carrental.entity.*;
+import by.bsuir.carrental.parser.TXTParser;
 import by.bsuir.carrental.service.*;
 
 import java.text.ParseException;
@@ -35,7 +36,7 @@ public class Main {
         listClient.add(client);
 
         Address addressCompany = new Address("Минск", "Тимирязева", 92);
-        Company company = new Company("Hello", addressCompany, listCar);
+        Company company = new Company("Hello", addressCompany, listCar, listClient);
 
         for(Car  c : company.getListCar()){
             System.out.println(c.getModel() + " " + c.getYearIssue());
@@ -43,17 +44,15 @@ public class Main {
         System.out.println();
 
         //readObject(company, listClient, listCar);   // Load data from *.txt file
-
         company.setListCar(listCar);
+        //readObject(company);   // Load data from *.txt file
 
         // Sort by Year of Issue car
-
-
         Collections.sort(company.getListCar(), new CarYearIssueComparator());
         for(Car  c : company.getListCar()){
             System.out.println(c.getModel() + " " + c.getYearIssue());
         }
-        System.out.println();
+        System.out.println('2');
 
         deleteObject(listCar, 751);  // Delete object
 
@@ -70,11 +69,11 @@ public class Main {
         for(Car  c : company.getListCar()){
             System.out.println(c.getModel() + " " + c.getYearIssue());
         }
-
-        saveObject(company, listClient, listCar);  // Save data in *.txt file
+        saveObject(company);  // Save data in *.txt file
 // End test Example
     }
     // Save data in *.txt file
+    /*
     public static void saveObject(Object o, List<Client> listClient, List<Car> listCar){
         String path = "src/save/";
         String filename = "";
@@ -138,6 +137,69 @@ public class Main {
             }
         }
     }
+
+     */
+    public static void saveObject(Company company){
+        String path = "src/save/";
+        String filename = "";
+        String info = "";
+        TXTParser txtParser = new TXTParser();
+
+        if (company != null)
+        {
+            filename = "Company";
+            info = txtParser.writeCompany(company,'|');
+
+            try(FileWriter file = new FileWriter(path + filename + ".txt", false))
+            {
+                file.write(info);
+                file.append('\n');
+            }
+            catch(IOException ex)
+            {
+                System.out.println(ex.getMessage());
+            }
+        }
+
+        if (company.getListClient() != null)
+        {
+            filename = "Client";
+
+            try(FileWriter file = new FileWriter(path + filename + ".txt", false))
+            {
+                for (int i=0; i < company.getListClient().size(); i++)
+                {
+                    file.write(txtParser.writeClient(company.getListClient().get(i),'|'));
+                    file.append('\n');
+                }
+                file.flush();
+            }
+            catch(IOException ex)
+            {
+                System.out.println(ex.getMessage());
+            }
+        }
+
+        if (company.getListCar() != null)
+        {
+            filename = "Car";
+
+            try(FileWriter file = new FileWriter(path + filename + ".txt", false))
+            {
+                for (int i=0; i < company.getListCar().size(); i++)
+                {
+                    file.write(txtParser.writeCar(company.getListCar().get(i),'|'));
+                    file.append('\n');
+                }
+                file.flush();
+            }
+            catch(IOException ex)
+            {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }
+
     // Load data from *.txt file
     /*
     public static void readObject(Company company, List<Client> listClient, List<Car> listCar){
@@ -240,6 +302,111 @@ public class Main {
 
     }
     */
+    public static void readObject(Company company){
+        String path = "src/save/";
+        String filename = "";
+        String info = "";
+
+        TXTParser txtParser = new TXTParser();
+
+        if (company != null)
+        {
+            filename = "Company";
+
+            try(FileReader file = new FileReader (path + filename + ".txt"))
+            {
+
+                String word = "";
+                int c;
+
+                while((c = file.read()) != -1)
+                {
+                    if ((char)c != '\r')
+                    {
+                        if ((char)c != '\n')
+                            word += (char) c;
+                        else {
+                            company = txtParser.readCompany(word, '|');
+                            word = "";
+                        }
+                    }
+
+                }
+            }
+            catch(IOException ex)
+            {
+                System.out.println(ex.getMessage());
+            }
+
+        }
+
+        if (company.getListClient() == null)
+        {
+            filename = "Client";
+            List<Client> listClient = new ArrayList<>();
+
+            try(FileReader file = new FileReader(path + filename + ".txt"))
+            {
+                String word = "";
+                int c;
+
+                while((c = file.read()) != -1)
+                {
+                    if ((char)c != '\r')
+                    {
+                        if ((char)c != '\n')
+                            word += (char) c;
+                        else {
+                            Client client = null;
+                            client = txtParser.readClient(word, '|');
+                            listClient.add(client);
+                            word = "";
+                        }
+                    }
+                }
+                company.setListClient(listClient);
+            }
+            catch(IOException ex)
+            {
+                System.out.println(ex.getMessage());
+            }
+        }
+
+        if (company.getListCar() == null)
+        {
+            filename = "Car";
+            List<Car> listCar = new ArrayList<>();
+
+            try(FileReader file = new FileReader(path + filename + ".txt"))
+            {
+                String word = "";
+                int c;
+
+                while((c = file.read()) != -1)
+                {
+                    if ((char)c != '\r')
+                    {
+                        if ((char)c != '\n')
+                            word += (char) c;
+                        else {
+                            Car car = null;
+                            car = txtParser.readCar(word, '|');
+                            listCar.add(car);
+                            word = "";
+                        }
+                    }
+                }
+                company.setListCar(listCar);
+            }
+            catch(IOException ex)
+            {
+                System.out.println(ex.getMessage());
+            }
+        }
+
+
+    }
+
     // Delete object
     public static void deleteObject(List<Car> listCar, int id){
         for (Car car : listCar)

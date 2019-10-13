@@ -18,6 +18,10 @@ public class Client implements Serializable {
         this.rentCar = rentCar;
     }
 
+    public Client() {
+
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -57,7 +61,7 @@ public class Client implements Serializable {
     public RentCar getCar() {
         return rentCar;
     }
-
+/*
     public String writeClient(char l){
         return getName() + l + getSurname() + l + getAddress().writeAddress('|') + l + getId() + l + getCar().writeRentCar('|');
     }
@@ -81,4 +85,6 @@ public class Client implements Serializable {
 
         rentCar.readRentCar(str, l);
     }
+
+ */
 }

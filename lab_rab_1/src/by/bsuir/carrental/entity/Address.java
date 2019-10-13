@@ -18,6 +18,10 @@ public class Address implements Serializable {
         this.street = street;
     }
 
+    public Address() {
+
+    }
+
     public void setCity(String city) {
         this.city = city;
     }
@@ -41,7 +45,7 @@ public class Address implements Serializable {
     public int getHouseNumber() {
         return houseNumber;
     }
-
+/*
     public String writeAddress(char l){
         return getCity() + l + getStreet() + l + getHouseNumber();
     }
@@ -69,5 +73,7 @@ public class Address implements Serializable {
         }
 
     }
+
+ */
 
 }

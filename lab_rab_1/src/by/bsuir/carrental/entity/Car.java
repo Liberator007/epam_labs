@@ -19,6 +19,10 @@ public class Car implements Serializable {
         this.rent = rent;
     }
 
+    public Car() {
+
+    }
+
     public void setModel(String model) {
         this.model = model;
     }
@@ -66,7 +70,7 @@ public class Car implements Serializable {
     public boolean isRent() {
         return rent;
     }
-
+/*
     public String writeCar(char l){
         return getModel() + l + getId() + l + getYearIssue() + l + getPrice() + l + getSeats() + l + isRent();
     }
@@ -105,4 +109,6 @@ public class Car implements Serializable {
             setRent(Boolean.parseBoolean(str));
         }
     }
+
+ */
 }

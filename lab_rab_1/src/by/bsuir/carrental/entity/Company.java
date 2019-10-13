@@ -7,11 +7,19 @@ public class Company implements Serializable {
     private String name;
     private Address address;
     private List<Car> listCar;
+    private List<Client> listClient;
 
     public Company(String name, Address address, List<Car> listCar) {
         this.name = name;
         this.address = address;
         this.listCar = listCar;
+    }
+
+    public Company(String name, Address address, List<Car> listCar, List<Client> listClient) {
+        this.name = name;
+        this.address = address;
+        this.listCar = listCar;
+        this.listClient = listClient;
     }
 
     public Company() {
@@ -23,6 +31,10 @@ public class Company implements Serializable {
 
     public void setListCar(List<Car> listCar) {
         this.listCar = listCar;
+    }
+
+    public void setListClient(List<Client> listClient) {
+        this.listClient = listClient;
     }
 
     public void setAddress(Address address) {
@@ -41,6 +53,10 @@ public class Company implements Serializable {
         return listCar;
     }
 
+    public List<Client> getListClient() {
+        return listClient;
+    }
+/*
     public String writeCompany(char l){
         return getName() + l + getAddress().writeAddress('|');
     }
@@ -57,4 +73,6 @@ public class Company implements Serializable {
 
         setListCar(null);
     }
+
+ */
 }
