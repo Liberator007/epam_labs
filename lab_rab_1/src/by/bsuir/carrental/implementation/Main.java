@@ -4,141 +4,69 @@ import by.bsuir.carrental.entity.*;
 import by.bsuir.carrental.parser.TXTParser;
 import by.bsuir.carrental.service.*;
 
-import java.text.ParseException;
 import java.util.*;
 import java.io.IOException;
 import java.io.*;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
-        List<Client> listClient = new ArrayList<>();
-        List<Car> listCar = new ArrayList<>();
+    public static void main(String[] args) {
+
         int number;
 
-// Start test Example
-        Car car1 = new Car("Lada", 7731, 2006,20, 5,false);
-        listCar.add(car1);
-        Car car2 = new Car("Audi", 751, 2019,400, 2,true);
-        listCar.add(car2);
-        Car car3 = new Car("Volvo", 1031, 2014,40, 5,true);
-        listCar.add(car3);
+        Company company = null;
 
-        Address addressClient = new Address("Минск", "Победителей", 108);
+        // Read ListCar
+        company = readObject();   // Load data from *.txt file
 
-        Date startDate = new Date();
-        Date endDate = new Date(0, 0, 0, 12, 0 , 0);
-        endDate.setTime(startDate.getTime() + endDate.getTime());
-
-        RentCar rentCar = new RentCar(car1, startDate, endDate, addressClient);
-
-        Client client = new Client("Anton", "Salyava", addressClient, 239498, rentCar);
-        listClient.add(client);
-
-        Address addressCompany = new Address("Минск", "Тимирязева", 92);
-        Company company = new Company("Hello", addressCompany, listCar, listClient);
-
+        // Screen ListCar
         for(Car  c : company.getListCar()){
             System.out.println(c.getModel() + " " + c.getYearIssue());
         }
         System.out.println();
-
-        //readObject(company, listClient, listCar);   // Load data from *.txt file
-        company.setListCar(listCar);
-        //readObject(company);   // Load data from *.txt file
 
         // Sort by Year of Issue car
         Collections.sort(company.getListCar(), new CarYearIssueComparator());
         for(Car  c : company.getListCar()){
             System.out.println(c.getModel() + " " + c.getYearIssue());
         }
-        System.out.println('2');
+        System.out.println();
 
-        deleteObject(listCar, 751);  // Delete object
+        // Delete Object
+        company = deleteObject(company, 751);  // Delete object
 
+        // Create Object
+        Car car2 = new Car("Audi",751,2019,400,2,true);
+        company.getListCar().add(car2);
+        Car car3 = new Car("Volvo",1031,2014,40,5,true);
+        company.getListCar().add(car3);
+
+        // Screen ListCar
         for(Car  c : company.getListCar()){
             System.out.println(c.getModel() + " " + c.getYearIssue());
         }
 
+        // Search ListCar
+        System.out.println();
+        searchObject(company, car3);
         System.out.println();
 
-        car3.setModel("Bugatti");
-        updateObject(listCar, car3);   // Update object
+        // Update Object
+        Car car = new Car("Lada", 7731, 2006,20, 5,false);
+        car.setModel("Grob");
+        updateObject(company, car);   // Update object
+
         // Sort by model car
         Collections.sort(company.getListCar(), new CarModelComparator());
         for(Car  c : company.getListCar()){
             System.out.println(c.getModel() + " " + c.getYearIssue());
         }
+
+        // Save ListCar
         saveObject(company);  // Save data in *.txt file
-// End test Example
     }
+
     // Save data in *.txt file
-    /*
-    public static void saveObject(Object o, List<Client> listClient, List<Car> listCar){
-        String path = "src/save/";
-        String filename = "";
-        String info = "";
-
-        if (o instanceof Company)
-        {
-            Company company =  ((Company) o);
-            filename = "Company";
-            info = company.getName() + '|' + company.getAddress().writeAddress('|');
-
-            try(FileWriter file = new FileWriter(path + filename + ".txt", false))
-            {
-                file.write(info);
-                file.append('\n');
-                file.append('\r');
-            }
-            catch(IOException ex)
-            {
-                System.out.println(ex.getMessage());
-            }
-        }
-
-        if (listClient != null)
-        {
-            filename = "Client";
-
-            try(FileWriter file = new FileWriter(path + filename + ".txt", false))
-            {
-                for (int i=0; i < listClient.size(); i++)
-                {
-                    file.write(listClient.get(i).writeClient('|'));
-                    file.append('\n');
-                    file.append('\r');
-                }
-                file.flush();
-            }
-            catch(IOException ex)
-            {
-                System.out.println(ex.getMessage());
-            }
-        }
-
-        if (listCar != null)
-        {
-            filename = "Car";
-
-            try(FileWriter file = new FileWriter(path + filename + ".txt", false))
-            {
-                for (int i=0; i < listCar.size(); i++)
-                {
-                    file.write(listCar.get(i).writeCar('|'));
-                    file.append('\n');
-                    file.append('\r');
-                }
-                file.flush();
-            }
-            catch(IOException ex)
-            {
-                System.out.println(ex.getMessage());
-            }
-        }
-    }
-
-     */
     public static void saveObject(Company company){
         String path = "src/save/";
         String filename = "";
@@ -201,111 +129,11 @@ public class Main {
     }
 
     // Load data from *.txt file
-    /*
-    public static void readObject(Company company, List<Client> listClient, List<Car> listCar){
+    public static Company readObject(){
         String path = "src/save/";
         String filename = "";
         String info = "";
-        if (true)
-        {
-            filename = "Company";
-
-            try(FileReader file = new FileReader (path + filename + ".txt"))
-            {
-
-                String word = "";
-                int c;
-
-                while((c = file.read()) != -1)
-                {
-                    if ((char)c != '\r')
-                    {
-                        if ((char)c != '\n')
-                            word += (char) c;
-                        else {
-                            company.readCompany(word, '|');
-                            word = "";
-                        }
-                    }
-
-                }
-            }
-            catch(IOException ex)
-            {
-                System.out.println(ex.getMessage());
-            }
-
-        }
-
-        if (listClient != null)
-        {
-            filename = "Client";
-
-            try(FileReader file = new FileReader(path + filename + ".txt"))
-            {
-                String word = "";
-                int c;
-
-                while((c = file.read()) != -1)
-                {
-                    if ((char)c != '\r')
-                    {
-                        if ((char)c != '\n')
-                            word += (char) c;
-                        else {
-                            Client client = null;
-                            client.readClient(word, '|');
-                            listClient.add(client);
-                            word = "";
-                        }
-                    }
-
-                }
-            }
-            catch(IOException | ParseException ex)
-            {
-                System.out.println(ex.getMessage());
-            }
-        }
-
-        if (listCar != null)
-        {
-            filename = "Car";
-
-            try(FileReader file = new FileReader(path + filename + ".txt"))
-            {
-                String word = "";
-                int c;
-
-                while((c = file.read()) != -1)
-                {
-                    if ((char)c != '\r')
-                    {
-                        if ((char)c != '\n')
-                            word += (char) c;
-                        else {
-                            Car car = null;
-                            car.readCar(word, '|');
-                            listCar.add(car);
-                            word = "";
-                        }
-                    }
-
-                }
-            }
-            catch(IOException ex)
-            {
-                System.out.println(ex.getMessage());
-            }
-        }
-
-
-    }
-    */
-    public static void readObject(Company company){
-        String path = "src/save/";
-        String filename = "";
-        String info = "";
+        Company company = new Company();
 
         TXTParser txtParser = new TXTParser();
 
@@ -404,31 +232,60 @@ public class Main {
             }
         }
 
+        return company;
 
     }
 
     // Delete object
-    public static void deleteObject(List<Car> listCar, int id){
+    public static Company deleteObject(Company company, int id){
+        List<Car> listCar = company.getListCar();
         for (Car car : listCar)
         {
             if (car.getId() == id)
             {
                 listCar.remove(car);
-                return;
+                return company;
             }
         }
+        company.setListCar(listCar);
+        return company;
     }
+
     // Update object
-    public static void updateObject(List<Car> listCar, Car newCar){
+    public static Company updateObject(Company company, Car newCar){
+        List<Car> listCar = company.getListCar();
         for (Car car : listCar) {
 
             if (car.getId() == newCar.getId()) {
                 listCar.remove(car);
                 listCar.add(newCar);
+                return company;
+            }
+        }
+        company.setListCar(listCar);
+        return company;
+    }
+
+    // Search object
+    public static void searchObject(Company company, Car searchCar){
+        List<Car> listCar = company.getListCar();
+        for (Car car : listCar)
+        {
+            if (car.getId() == searchCar.getId())
+            {
+                listCar.remove(car);
+                System.out.println(screenObject(car, ' '));
                 return;
             }
         }
     }
 
-
+    // Screen object
+    public static String screenObject(Object obj, char l){
+        if (obj instanceof Car) {
+            Car car = (Car) obj;
+            return car.getModel() + l + car.getId() + l + car.getYearIssue() + l + car.getPrice() + l + car.getSeats() + l + car.isRent();
+        }
+        return "";
+    }
 }

@@ -7,6 +7,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class TXTParser {
     public String writeCompany(Company company, char l){
@@ -106,9 +107,14 @@ public class TXTParser {
         int index;
         RentCar rentCar = new RentCar();
 
-        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
+
         try {
             rentCar.setCar(readCar(str, l));
+            for (int i=0; i<6; i++) {
+                index = str.indexOf(l);
+                str = str.substring(index + 1);
+            }
 
             index = str.indexOf(l);
             Date startDate = dateFormat.parse(str.substring(0, index));
@@ -150,6 +156,15 @@ public class TXTParser {
         //
         //
         //
+        for (int i=0; i<3; i++) {
+            index = str.indexOf(l);
+            str = str.substring(index + 1);
+        }
+        /*
+        index = str.indexOf(l);
+        str = str.substring(index + 1);
+         */
+
         index = str.indexOf(l);
         client.setId(Integer.parseInt(str.substring(0, index)));
         str = str.substring(index + 1);
