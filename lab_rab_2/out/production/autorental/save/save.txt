@@ -1,0 +1,8 @@
+Hello|Минск|Тимирязева|92
+
+Anton|Salyava|Минск|Победителей|108|239498|Lada|7731|2006|20|5|false|Sun Oct 13 00:49:03 MSK 2019|Wed Oct 12 09:49:03 MSK 1949|Минск|Победителей|108
+
+Bugatti|1031|2014|40|5|true
+Lada|7731|2006|20|5|false
+
+"E MMM dd HH:mm:ss z y"
