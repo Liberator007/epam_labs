@@ -128,7 +128,7 @@ public class Main {
         }
     }
 
-    // Load data from *.txt file
+    // Load data from *.txt file(Company)
     public static Company readObject(){
         String path = "C:/Users/Антон/Documents/GitHub/epam_labs/lab_rab_1/src/save/";
         String filename = "";
