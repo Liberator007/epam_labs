@@ -17,7 +17,7 @@ public class Main {
         Company company = null;
 
         // Read ListCar
-        company = readObject();   // Load data from *.txt file
+        company = readObject();   // Load data from *.txt file                                      //------------------
 
         // Screen ListCar
         for(Car  c : company.getListCar()){
@@ -33,7 +33,7 @@ public class Main {
         System.out.println();
 
         // Delete Object
-        company = deleteObject(company, 751);  // Delete object
+        company = deleteObject(company, 751);  // Delete object                                 //------------------
 
         // Create Object
         Car car2 = new Car("Audi",751,2019,400,2,true);
@@ -48,22 +48,23 @@ public class Main {
 
         // Search ListCar
         System.out.println();
-        searchObject(company, car3);
+        searchObject(company, car3);                                                                //------------------
         System.out.println();
 
         // Update Object
         Car car = new Car("Lada", 7731, 2006,20, 5,false);
         car.setModel("Grob");
-        updateObject(company, car);   // Update object
-
+        updateObject(company, car);   // Update object                                              //------------------
+/*
         // Sort by model car
         Collections.sort(company.getListCar(), new CarModelComparator());
         for(Car  c : company.getListCar()){
             System.out.println(c.getModel() + " " + c.getYearIssue());
         }
-
+*/
+        sortObject(company);                                                                        //------------------
         // Save ListCar
-        saveObject(company);  // Save data in *.txt file
+        saveObject(company);  // Save data in *.txt file                                            //------------------
     }
 
     // Save data in *.txt file
@@ -287,5 +288,15 @@ public class Main {
             return car.getModel() + l + car.getId() + l + car.getYearIssue() + l + car.getPrice() + l + car.getSeats() + l + car.isRent();
         }
         return "";
+    }
+
+    // Sort
+    public static void sortObject(Object obj){
+        // Sort by model car
+        Company company = (Company) obj;
+        Collections.sort(company.getListCar(), new CarModelComparator());
+        for(Car  c : company.getListCar()){
+            System.out.println(c.getModel() + " " + c.getYearIssue());
+        }
     }
 }
