@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DAO {
-    public static Company getData() throws DaoGetException {
+    public static Company getData(){
         String path = "C:/Users/Антон/Documents/GitHub/epam_labs/lab_rab_1/src/save/";
         String filename = "";
         String info = "";

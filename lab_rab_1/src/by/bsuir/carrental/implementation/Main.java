@@ -1,8 +1,11 @@
 package by.bsuir.carrental.implementation;
 
 import by.bsuir.carrental.entity.*;
+import by.bsuir.carrental.exceptions.DaoGetException;
+import by.bsuir.carrental.exceptions.DaoSaveException;
 import by.bsuir.carrental.parser.TXTParser;
 import by.bsuir.carrental.service.*;
+import by.bsuir.carrental.stationDAO.DAO;
 
 import java.util.*;
 import java.io.IOException;
@@ -10,14 +13,15 @@ import java.io.*;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DaoSaveException {
 
         int number;
 
         Company company = null;
 
         // Read ListCar
-        company = readObject();   // Load data from *.txt file                                      //------------------
+        DAO dao = new DAO();
+        company = dao.getData();   // Load data from *.txt file                                     //------------------
 
         // Screen ListCar
         for(Car  c : company.getListCar()){
@@ -55,16 +59,11 @@ public class Main {
         Car car = new Car("Lada", 7731, 2006,20, 5,false);
         car.setModel("Grob");
         updateObject(company, car);   // Update object                                              //------------------
-/*
+
         // Sort by model car
-        Collections.sort(company.getListCar(), new CarModelComparator());
-        for(Car  c : company.getListCar()){
-            System.out.println(c.getModel() + " " + c.getYearIssue());
-        }
-*/
         sortObject(company);                                                                        //------------------
         // Save ListCar
-        saveObject(company);  // Save data in *.txt file                                            //------------------
+        dao.setData(company);  // Save data in *.txt file                                           //------------------
     }
 
     // Save data in *.txt file
@@ -275,7 +274,7 @@ public class Main {
             if (car.getId() == searchCar.getId())
             {
                 listCar.remove(car);
-                System.out.println(screenObject(car, ' '));
+                System.out.println(screenObject(car, '\n'));
                 return;
             }
         }
@@ -285,7 +284,7 @@ public class Main {
     public static String screenObject(Object obj, char l){
         if (obj instanceof Car) {
             Car car = (Car) obj;
-            return car.getModel() + l + car.getId() + l + car.getYearIssue() + l + car.getPrice() + l + car.getSeats() + l + car.isRent();
+            return "Model: " + car.getModel() + l + "ID: " + car.getId() + l + "Year issue: " + car.getYearIssue() + l + "Price: " + car.getPrice() + l + "Seats: " + car.getSeats() + l + "Rent: " + car.isRent();
         }
         return "";
     }
