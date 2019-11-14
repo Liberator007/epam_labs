@@ -22,7 +22,9 @@ public class Main {
         // Read ListCar
         DAO dao = new DAO();
         company = dao.getData();   // Load data from *.txt file                                     //------------------
-
+        Car car4 = new Car("Lok",51,2019,400,2,true);
+        company.getListCar().add(car4);
+        dao.setData(company);
         // Screen ListCar
         for(Car  c : company.getListCar()){
             System.out.println(c.getModel() + " " + c.getYearIssue());
@@ -63,7 +65,7 @@ public class Main {
         // Sort by model car
         sortObject(company);                                                                        //------------------
         // Save ListCar
-        dao.setData(company);  // Save data in *.txt file                                           //------------------
+        //dao.setData(company);  // Save data in *.txt file                                           //------------------
     }
 
     // Save data in *.txt file

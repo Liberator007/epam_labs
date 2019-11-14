@@ -1,8 +1,11 @@
 package by.bsuir.carrental.implementation;
 
 import by.bsuir.carrental.entity.*;
+import by.bsuir.carrental.exceptions.DaoGetException;
+import by.bsuir.carrental.exceptions.DaoSaveException;
 import by.bsuir.carrental.parser.TXTParser;
 import by.bsuir.carrental.service.*;
+import by.bsuir.carrental.stationDAO.DAO;
 
 import java.util.*;
 import java.io.IOException;
@@ -10,15 +13,18 @@ import java.io.*;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DaoSaveException {
 
         int number;
 
         Company company = null;
 
         // Read ListCar
-        company = readObject();   // Load data from *.txt file
-
+        DAO dao = new DAO();
+        company = dao.getData();   // Load data from *.txt file                                     //------------------
+        Car car4 = new Car("Lok",51,2019,400,2,true);
+        company.getListCar().add(car4);
+        dao.setData(company);
         // Screen ListCar
         for(Car  c : company.getListCar()){
             System.out.println(c.getModel() + " " + c.getYearIssue());
@@ -33,7 +39,7 @@ public class Main {
         System.out.println();
 
         // Delete Object
-        company = deleteObject(company, 751);  // Delete object
+        company = deleteObject(company, 751);  // Delete object                                 //------------------
 
         // Create Object
         Car car2 = new Car("Audi",751,2019,400,2,true);
@@ -48,22 +54,18 @@ public class Main {
 
         // Search ListCar
         System.out.println();
-        searchObject(company, car3);
+        searchObject(company, car3);                                                                //------------------
         System.out.println();
 
         // Update Object
         Car car = new Car("Lada", 7731, 2006,20, 5,false);
         car.setModel("Grob");
-        updateObject(company, car);   // Update object
+        updateObject(company, car);   // Update object                                              //------------------
 
         // Sort by model car
-        Collections.sort(company.getListCar(), new CarModelComparator());
-        for(Car  c : company.getListCar()){
-            System.out.println(c.getModel() + " " + c.getYearIssue());
-        }
-
+        sortObject(company);                                                                        //------------------
         // Save ListCar
-        saveObject(company);  // Save data in *.txt file
+        //dao.setData(company);  // Save data in *.txt file                                           //------------------
     }
 
     // Save data in *.txt file
@@ -128,7 +130,7 @@ public class Main {
         }
     }
 
-    // Load data from *.txt file
+    // Load data from *.txt file(Company)
     public static Company readObject(){
         String path = "C:/Users/Антон/Documents/GitHub/epam_labs/lab_rab_1/src/save/";
         String filename = "";
@@ -274,7 +276,7 @@ public class Main {
             if (car.getId() == searchCar.getId())
             {
                 listCar.remove(car);
-                System.out.println(screenObject(car, ' '));
+                System.out.println(screenObject(car, '\n'));
                 return;
             }
         }
@@ -284,8 +286,18 @@ public class Main {
     public static String screenObject(Object obj, char l){
         if (obj instanceof Car) {
             Car car = (Car) obj;
-            return car.getModel() + l + car.getId() + l + car.getYearIssue() + l + car.getPrice() + l + car.getSeats() + l + car.isRent();
+            return "Model: " + car.getModel() + l + "ID: " + car.getId() + l + "Year issue: " + car.getYearIssue() + l + "Price: " + car.getPrice() + l + "Seats: " + car.getSeats() + l + "Rent: " + car.isRent();
         }
         return "";
+    }
+
+    // Sort
+    public static void sortObject(Object obj){
+        // Sort by model car
+        Company company = (Company) obj;
+        Collections.sort(company.getListCar(), new CarModelComparator());
+        for(Car  c : company.getListCar()){
+            System.out.println(c.getModel() + " " + c.getYearIssue());
+        }
     }
 }
