@@ -6,7 +6,9 @@ import by.bsuir.carrental.entity.Company;
 import by.bsuir.carrental.exceptions.CantLoadException;
 import by.bsuir.carrental.exceptions.DaoGetException;
 import by.bsuir.carrental.exceptions.DaoSaveException;
+import by.bsuir.carrental.exporter.SQLExporter;
 import by.bsuir.carrental.parser.TXTParser;
+import by.bsuir.carrental.parser.XMLParser;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -16,7 +18,7 @@ import java.util.List;
 
 public class DAO {
     public static Company getData(){
-        String path = "C:/Users/Антон/Documents/GitHub/epam_labs/lab_rab_1/src/save/";
+        String path = "C:/Users/Антон/Documents/GitHub/epam_labs/lab_rab_2/src/save/";
         String filename = "";
         String info = "";
         Company company = new Company();
@@ -123,7 +125,7 @@ public class DAO {
 
     public static void setData(Object obj) throws DaoSaveException {
         try{
-            String path = "C:/Users/Антон/Documents/GitHub/epam_labs/lab_rab_1/src/save/";
+            String path = "C:/Users/Антон/Documents/GitHub/epam_labs/lab_rab_2/src/save/";
             String filename = "";
             String info = "";
             Company company = (Company) obj;
@@ -186,5 +188,24 @@ public class DAO {
         catch(Exception ex){
             throw new DaoSaveException();
         }
+    }
+
+    public static void setXMLData(Object obj) throws DaoSaveException {
+        try{
+            String path = "C:/Users/Антон/Documents/GitHub/epam_labs/lab_rab_2/src/save/";
+            String filename = "carRental";
+            String ext = ".xml";
+            Company company = (Company) obj;
+            XMLParser xmlParser = new XMLParser();
+            xmlParser.pullSubscribers(company, path + filename + ext);
+        }
+        catch(Exception ex){
+            throw new DaoSaveException();
+        }
+    }
+
+    public static void setSQLData(){
+            SQLExporter exporter = new SQLExporter();
+            exporter.sqlExporter();
     }
 }

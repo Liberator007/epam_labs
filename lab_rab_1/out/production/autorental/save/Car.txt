@@ -1,3 +1,5 @@
-Audi|751|2019|400|2|true
+Audi|751|2019|400|2|false
 Grob|7731|2006|20|5|false
-Volvo|1031|2014|40|5|true
+Volvo|1031|2014|40|5|false
+Lok|51|2019|400|2|false
+Lok|51|2019|400|2|true

@@ -1,3 +1,4 @@
+/*
 package by.bsuir.committee.parser;
 
 import java.io.BufferedReader;
@@ -39,7 +40,7 @@ public class UserXMLParser implements XMLParser<Enrollee> {
     
     private UserXMLParser() {
     	DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-    
+
         try {
             documentBuilder = factory.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
@@ -114,3 +115,4 @@ public class UserXMLParser implements XMLParser<Enrollee> {
     }
 
 }
+*/

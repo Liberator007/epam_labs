@@ -25,6 +25,7 @@ public class Main {
         Car car4 = new Car("Lok",51,2019,400,2,true);
         company.getListCar().add(car4);
         dao.setData(company);
+
         // Screen ListCar
         for(Car  c : company.getListCar()){
             System.out.println(c.getModel() + " " + c.getYearIssue());
@@ -39,13 +40,14 @@ public class Main {
         System.out.println();
 
         // Delete Object
-        company = deleteObject(company, 751);  // Delete object                                 //------------------
+        //company = deleteObject(company, 751);  // Delete object                                 //------------------
 
         // Create Object
         Car car2 = new Car("Audi",751,2019,400,2,true);
         company.getListCar().add(car2);
         Car car3 = new Car("Volvo",1031,2014,40,5,true);
         company.getListCar().add(car3);
+        dao.setData(company);
 
         // Screen ListCar
         for(Car  c : company.getListCar()){
@@ -59,13 +61,19 @@ public class Main {
 
         // Update Object
         Car car = new Car("Lada", 7731, 2006,20, 5,false);
+        company.getListCar().add(car);
         car.setModel("Grob");
         updateObject(company, car);   // Update object                                              //------------------
+        dao.setData(company);
 
         // Sort by model car
         sortObject(company);                                                                        //------------------
         // Save ListCar
         //dao.setData(company);  // Save data in *.txt file                                           //------------------
+
+        dao.setXMLData(company);
+
+        dao.setSQLData();
     }
 
     // Save data in *.txt file

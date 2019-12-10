@@ -26,8 +26,8 @@
   <component name="ProjectId" id="1RCY3k0e0jRxOsJ6vD22VQRAxY6" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/by/bsuir/carrental/log4j-1.2.15.jar!/" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
@@ -124,7 +124,7 @@
     <SUITE FILE_PATH="coverage/autobase$Main.ic" NAME="Main Coverage Results" MODIFIED="1569345430654" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.bsuir.autobase.entity.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/autobase$Main__1_.ic" NAME="Main (1) Coverage Results" MODIFIED="1570549438950" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/autobase$Main__1_.ic" NAME="Main (1) Coverage Results" MODIFIED="1576018054874" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>by.bsuir.carrental.implementation.*</FILTER>
     </SUITE>
   </component>
