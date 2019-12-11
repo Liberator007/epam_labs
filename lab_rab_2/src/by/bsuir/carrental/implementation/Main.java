@@ -22,6 +22,7 @@ public class Main {
         // Read ListCar
         DAO dao = new DAO();
         company = dao.getData();   // Load data from *.txt file                                     //------------------
+        /*
         Car car4 = new Car("Lok",51,2019,400,2,true);
         company.getListCar().add(car4);
         dao.setData(company);
@@ -70,7 +71,7 @@ public class Main {
         sortObject(company);                                                                        //------------------
         // Save ListCar
         //dao.setData(company);  // Save data in *.txt file                                           //------------------
-
+*/
         dao.setXMLData(company);
 
         dao.setSQLData();

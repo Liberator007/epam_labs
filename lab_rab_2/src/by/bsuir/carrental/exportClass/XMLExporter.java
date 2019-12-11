@@ -37,11 +37,11 @@ public class XMLExporter {
                 .execute("CREATE TABLE carRental(\n" +
                         " id integer primary key auto_increment,\n" +
                         " model varchar(25) not null unique,\n" +
-                        " idcar varchar(25) not null unique,\n" +
-                        " yearIssue varchar(25) not null unique,\n" +
-                        " price varchar(25) not null unique,\n" +
-                        " seats varchar(25) not null unique,\n" +
-                        " rent varchar(25) not null unique\n" +
+                        " idcar varchar(25) not null,\n" +
+                        " yearIssue varchar(25) not null,\n" +
+                        " price varchar(25) not null,\n" +
+                        " seats varchar(25) not null,\n" +
+                        " rent varchar(25) not null\n" +
                         ")");
 
 
