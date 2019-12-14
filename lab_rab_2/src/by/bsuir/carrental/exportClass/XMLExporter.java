@@ -36,7 +36,7 @@ public class XMLExporter {
         con.createStatement()
                 .execute("CREATE TABLE carRental(\n" +
                         " id integer primary key auto_increment,\n" +
-                        " model varchar(25) not null unique,\n" +
+                        " model varchar(25) not null,\n" +
                         " idcar varchar(25) not null,\n" +
                         " yearIssue varchar(25) not null,\n" +
                         " price varchar(25) not null,\n" +

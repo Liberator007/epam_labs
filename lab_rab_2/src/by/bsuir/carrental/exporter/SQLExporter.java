@@ -42,7 +42,7 @@ public class SQLExporter {
         PropertyConfigurator.configure("C:/Users/Антон/Documents/GitHub/epam_labs/lab_rab_2/src/log4j.properties");
         try {
             xmlEx = new XMLExporter(dbUrl, uName, pass);
-            System.out.println("Connection success");
+            logger.info("Connection success");
         }catch (SQLException sqlEx){
             isNotEnd = false;
             logger.error(sqlEx.getMessage());

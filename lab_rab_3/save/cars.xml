@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<cars>
+	<car>
+		<model>Lok</model>
+		<id>51</id>
+		<yearIssue>2018</yearIssue>
+		<price>360</price>
+		<seats>2</seats>
+		<rent>1</rent>
+		<fuel>DIESEL</fuel>
+	</car>
+	<car>
+		<model>Audi</model>
+		<id>751</id>
+		<yearIssue>2019</yearIssue>
+		<price>400</price>
+		<seats>4</seats>
+		<rent>0</rent>
+		<fuel>DIESEL</fuel>
+	</car>
+	<car>
+		<model>Volvo</model>
+		<id>7731</id>
+		<yearIssue>2006</yearIssue>
+		<price>20</price>
+		<seats>5</seats>
+		<rent>false</rent>
+		<fuel>DIESEL</fuel>
+	</car>
+</cars>
